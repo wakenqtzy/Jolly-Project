@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+        <style>
+    .control-group {
+    margin-top: 50px;
+    }
+    .display-status {
+    font-size: 2rem;
+    font-weight: bold;
+    }
+    </style>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+    <div class="col-md-6 offset-md-3 control-group">
+        <h2 class="text-center">Temperature, Air Quality & Poultry Control</h2>
+        <div class="d-flex justify-content-center align-items-center">
+            <!-- Temperature Control -->
+            <div class="mx-4">
+            <h4 class="text-center">Temperature</h4>
+            <div class="d-flex justify-content-center align-items-center">
+        <button id="decreaseTempBtn" class="btn btn-primary">-</button>
+        <div id="temperatureDisplay" class="display-status mx-3">20°C</div>
+        <button id="increaseTempBtn" class="btn btn-primary">+</button>
+            </div>
+        </div>
+        <!-- Air Quality Control -->
+        <div class="mx-4">
+            <h4 class="text-center">Air Quality</h4>
+            <div class="d-flex justify-content-center align-items-center">
+                <button id="decreaseAirBtn" class="btn btn-primary">-</button>
+                <div id="airQualityDisplay" class="display-status mx-3">Good</div>
+                <button id="increaseAirBtn" class="btn btn-primary">+</button>
+            </div>
+            </div>
+            <!-- Light Control -->
+            <div class="mx-4">
+            <h4 class="text-center">Light Status</h4>
+            <div id="lightStatusDisplay" class="display-status mx-3">Off</div>
+            </div>
+            <!-- Pump Control -->
+            <div class="mx-4">
+            <h4 class="text-center">Pump Status</h4>
+            <div id="pumpStatusDisplay" class="display-status mx-3">Off</div>
+        </div>
+        <!-- Fan Control -->
+        <div class="mx-4">
+            <h4 class="text-center">Fan Status</h4>
+            <div id="fanStatusDisplay" class="display-status mx-3">Off</div>
+    </div>
+        </div>
+        <!-- Time, Date, Location -->
+        <div class="text-center mt-4">
+            <p id="timeDisplay" class="mb-1">Time: 00:00:00</p>
+            <p id="dateDisplay" class="mb-1">Date: January 1, 2022</p>
+            <p id="locationDisplay" class="mb-0">Location: Your Location</p>
+        </div>
+        </div>
+    </div>
+    </div>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+    // Update time
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('timeDisplay').innerText = `Time: ${hours}:${minutes}:${seconds}`;
+    }
+
+    // Update date
+    function updateDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateString = now.toLocaleDateString('en-US', options);
+        document.getElementById('dateDisplay').innerText = `Date: ${dateString}`;
+    }
+
+    // Call update time and date functions initially and set interval to update every second
+    updateTime();
+    updateDate();
+    setInterval(() => {
+    updateTime();
+    }, 1000);
+
+    // Update location
+    document.getElementById('locationDisplay').innerText = 'Daet, Camarines Norte'; // Change 'Your Location' to actual location
+    </script>
+
+
+
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // JavaScript for temperature control
+    var temperature = 20; // Initial temperature
+
+    // Function to update temperature display
+    function updateTemperatureDisplay() {
+    document.getElementById('temperatureDisplay').innerText = temperature + '°C';
+    }
+
+    // Event listener for decrease temperature button
+    document.getElementById('decreaseTempBtn').addEventListener('click', function() {
+    if (temperature > 0) {
+        temperature--;
+        updateTemperatureDisplay();
+    }
+    });
+
+    // Event listener for increase temperature button
+    document.getElementById('increaseTempBtn').addEventListener('click', function() {
+      if (temperature < 40) { // Assuming maximum temperature is 40°C
+        temperature++;
+        updateTemperatureDisplay();
+    }
+    });
+
+    // JavaScript for air quality control
+    var airQualityLevel = 1; // Initial air quality level (1 = Good, 2 = Moderate, 3 = Poor)
+
+    // Function to update air quality display
+    function updateAirQualityDisplay() {
+        var airQualityLabels = ['Good', 'Moderate', 'Poor'];
+        document.getElementById('airQualityDisplay').innerText = airQualityLabels[airQualityLevel - 1];
+    }
+
+    // Event listener for decrease air quality button
+    document.getElementById('decreaseAirBtn').addEventListener('click', function() {
+    if (airQualityLevel > 1) {
+        airQualityLevel--;
+        updateAirQualityDisplay();
+        }
+    });
+
+    // Event listener for increase air quality button
+    document.getElementById('increaseAirBtn').addEventListener('click', function() {
+      if (airQualityLevel < 3) { // Assuming maximum air quality level is 3
+        airQualityLevel++;
+        updateAirQualityDisplay();
+        }
+    });
+
+    // JavaScript for light status control
+    var lightStatus = false; // Initial light status (false = Off, true = On)
+
+    // Function to update light status display
+    function updateLightStatusDisplay() {
+        document.getElementById('lightStatusDisplay').innerText = lightStatus ? 'On' : 'Off';
+    }
+
+    // Event listener for light status toggle
+    document.getElementById('lightStatusDisplay').addEventListener('click', function() {
+        lightStatus = !lightStatus;
+        updateLightStatusDisplay();
+    });
+
+    // JavaScript for pump status control
+    var pumpStatus = false; // Initial pump status (false = Off, true = On)
+
+    // Function to update pump status display
+    function updatePumpStatusDisplay() {
+    document.getElementById('pumpStatusDisplay').innerText = pumpStatus ? 'On' : 'Off';
+    }
+
+    // Event listener for pump status toggle
+    document.getElementById('pumpStatusDisplay').addEventListener('click', function() {
+        pumpStatus = !pumpStatus;
+        updatePumpStatusDisplay();
+    });
+
+    // JavaScript for fan status control
+    var fanStatus = false; // Initial fan status (false = Off, true = On)
+
+    // Function to update fan status display
+    function updateFanStatusDisplay() {
+        document.getElementById('fanStatusDisplay').innerText = fanStatus ? 'On' : 'Off';
+    }
+
+    // Event listener for fan status toggle
+    document.getElementById('fanStatusDisplay').addEventListener('click', function() {
+        fanStatus = !fanStatus;
+        updateFanStatusDisplay();
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <main>
+            <p>Check out these YouTube videos:</p>
+            <p><a href="https://www.youtube.com/watch?v=FXTVtSu6mns&ab_channel=JollyTech">Unveiling CapCut: From Clips to Cinematics | Jolly Tech</a></p>
+            <p><a href="https://www.youtube.com/watch?v=wwLFZaN5-DY&t=4s&ab_channel=JollyTech">Behind the Lens of a Content Creator | Jolly Tech</a></p>
+            <p><a href="https://www.youtube.com/watch?v=JQgsk9sWKx4&ab_channel=JollyTech">HP 15s Laptop: Unleashing the Power | Jolly Tech</a></p>
+            <p><a href="https://www.youtube.com/watch?v=XcUEN-JM1dE&ab_channel=JollyTech">POCO X6 PRO REVIEW - Is it worth it? | Jolly Tech</a></p>
+        </main>
+    </container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <footer>
+            <p>&copy; 2024 JOLLY-CODE</p>
+        </footer>
+    </div>
+
+
+<!-- Sign Out Button -->
+<div class="bottom-right">
+    <button type="button" class="btn btn-sign-out" onclick="signOut()">Sign Out</button>
+
+    </div>
+    
+    <!-- Bootstrap JS (optional, if you need functionality) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+    // Function to handle sign out
+    function signOut() {
+      // Redirect to index.html
+        window.location.href = 'index.html';
+    }
+    </script>
+
+</body>
+</html>
